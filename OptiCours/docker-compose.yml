@@ -1,0 +1,21 @@
+version: '3.8'
+
+services:
+  opticours:
+    build: .
+    container_name: opticours-app
+    restart: unless-stopped
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - ./nginx.conf:/etc/nginx/conf.d/default.conf
+      - ./dist:/var/www/opticours/dist
+    environment:
+      - NODE_ENV=production
+    networks:
+      - opticours-network
+
+networks:
+  opticours-network:
+    driver: bridge 
